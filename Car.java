@@ -85,7 +85,5 @@ public class Car {
         this.isAvailable = available;
     }
 
-    public void setReturned(String returned) {
-        this.isReturned = returned;
-    }
+    
 }
