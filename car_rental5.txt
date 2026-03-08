@@ -1,0 +1,98 @@
+CREATE DATABASE car_rental5;
+
+USE car_rental5;
+
+-- USERS
+INSERT INTO users (USERNAME, EMAIL, password, legal_name, drivers_license, phone_number, role, EMPLOYEE_ID) VALUES 
+('john_doe', 'john@example.com', 'pass123', 'John Doe', 'D1234567', '09171234567', 'customer', NULL), 
+('mary_smith', 'mary@example.com', 'pass123', 'Mary Smith', 'D7654321', '09179876543', 'customer', NULL), 
+('admin_user', 'admin@example.com', 'admin123', 'Admin User', NULL, '09170000000', 'admin', 'EMP001'), 
+('alex_tan', 'alex@example.com', 'pass123', 'Alex Tan', 'D1112223', '09175554444', 'customer', NULL), 
+('lisa_chen', 'lisa@example.com', 'pass123', 'Lisa Chen', 'D4445556', '09176667777', 'customer', NULL);
+
+-- CARS
+INSERT INTO cars (brand, model, rating, image_path, available, description, type, price_per_day, seats, fuel_type, is_deleted) VALUES 
+('Toyota', 'Corolla', 4.5, 'images/corolla.jpg', 1, 'Reliable compact sedan', 'Sedan', 2500.00, 5, 'Gasoline', 0), 
+('Honda', 'Civic', 4.6, 'images/civic.jpg', 1, 'Sporty and fuel efficient', 'Sedan', 2700.00, 5, 'Gasoline', 0), 
+('Ford', 'Everest', 4.7, 'images/everest.jpg', 1, 'Spacious family SUV', 'SUV', 4500.00, 7, 'Diesel', 0), 
+('Hyundai', 'Accent', 4.2, 'images/accent.jpg', 1, 'Budget friendly sedan', 'Sedan', 2200.00, 5, 'Gasoline', 0), 
+('Mitsubishi', 'Montero', 4.8, 'images/montero.jpg', 1, 'Powerful off-road SUV', 'SUV', 4800.00, 7, 'Diesel', 0);
+
+-- BOOKINGS
+INSERT INTO bookings (username, car_id, start_date, end_date, rental_days, total_amount, total_price, payment_method) VALUES 
+('john_doe', 1, '2026-04-01', '2026-04-03', 2, 5000.00, 5000.00, 'card'), 
+('mary_smith', 3, '2026-04-05', '2026-04-08', 3, 13500.00, 13500.00, 'cash'), 
+('alex_tan', 2, '2026-04-10', '2026-04-12', 2, 5400.00, 5400.00, 'card'), 
+('lisa_chen', 4, '2026-04-15', '2026-04-18', 3, 6600.00, 6600.00, 'card'), 
+('john_doe', 5, '2026-04-20', '2026-04-22', 2, 9600.00, 9600.00, 'cash');
+
+SELECT id, brand, model, image_path FROM cars;
+
+SET SQL_SAFE_UPDATES = 0;
+
+-- Delete everything
+DELETE FROM cars;
+
+-- Reset auto increment to start from 1
+ALTER TABLE cars AUTO_INCREMENT = 1;
+
+-- Re-insert clean data
+INSERT INTO cars (brand, model, rating, image_path, available, description, type, price_per_day, seats, fuel_type, is_deleted) VALUES
+('Ford', 'Everest', 4.7, 'Everest.png', 1, 'Spacious family SUV.', 'SUV', 4500.00, 7, 'Diesel', 0),
+('Toyota', 'Hilux', 4.7, 'hilux.png', 1, 'Rugged and reliable pickup truck.', 'Pickup', 4000.00, 5, 'Diesel', 0),
+('Honda', 'Civic', 4.6, 'honda_civic.png', 1, 'Sporty and fuel efficient.', 'Sedan', 2700.00, 5, 'Gasoline', 0),
+('Mitsubishi', 'Montero', 4.8, 'montero.png', 1, 'Powerful off-road SUV.', 'SUV', 4800.00, 7, 'Diesel', 0),
+('Nissan', 'GTR', 4.9, 'nissan_gtr.png', 1, 'High performance sports car.', 'Sports', 6000.00, 2, 'Gasoline', 0),
+('Nissan', 'Rogue', 4.6, 'nissan_rogue.png', 1, 'Comfortable crossover SUV.', 'SUV', 3800.00, 5, 'Gasoline', 0),
+('Toyota', 'Veloz', 4.4, 'veloz.png', 1, 'Spacious MPV for the whole family.', 'MPV', 2800.00, 7, 'Gasoline', 0),
+('Toyota', 'Wigo', 4.2, 'wigo.png', 1, 'Compact and fuel-efficient city car.', 'Hatchback', 1500.00, 5, 'Gasoline', 0);
+
+SET SQL_SAFE_UPDATES = 1;
+
+ALTER TABLE rentals MODIFY COLUMN payment_method VARCHAR(100);
+
+SET SQL_SAFE_UPDATES = 0;
+
+DELETE FROM cars;
+ALTER TABLE cars AUTO_INCREMENT = 1;
+
+INSERT INTO cars (brand, model, rating, image_path, available, description, type, price_per_day, seats, fuel_type, is_deleted) VALUES
+('Ford', 'Everest', 4.8, 'Everest.png', 1, 'Spacious SUV suitable for family trips and off-road driving.', 'SUV', 2900.00, 7, 'Diesel', 0),
+('Honda', 'Civic', 4.7, 'honda_civic.png', 1, 'Stylish sedan with excellent fuel efficiency and comfort.', 'Sedan', 2200.00, 5, 'Gasoline', 0),
+('Nissan', 'GTR', 4.3, 'nissan_gtr.png', 1, 'Compact vehicle ideal for city driving.', 'Hatchback', 1700.00, 5, 'Gasoline', 0),
+('Nissan', 'Rogue', 4.6, 'nissan_rogue.png', 1, 'Modern crossover SUV with advanced safety features.', 'SUV', 2400.00, 5, 'Gasoline', 0),
+('Mitsubishi', 'Montero', 4.9, 'montero.png', 1, 'High-performance sports car with aggressive styling.', 'Sports', 3000.00, 2, 'Gasoline', 0),
+('Toyota', 'Hilux', 4.8, 'hilux.png', 1, 'Reliable pickup truck designed for heavy-duty tasks.', 'Pickup', 2600.00, 5, 'Diesel', 0),
+('Toyota', 'Veloz', 4.5, 'veloz.png', 1, 'Family-friendly MPV with spacious interior.', 'MPV', 2000.00, 7, 'Gasoline', 0),
+('Toyota', 'Wigo', 4.2, 'wigo.png', 1, 'Affordable compact hatchback perfect for daily use.', 'Hatchback', 1700.00, 5, 'Gasoline', 0);
+
+SET SQL_SAFE_UPDATES = 1;
+
+SELECT *FROM cars;
+
+SELECT TABLE_NAME, CONSTRAINT_NAME, REFERENCED_TABLE_NAME
+FROM information_schema.KEY_COLUMN_USAGE
+WHERE REFERENCED_TABLE_NAME = 'cars'
+AND CONSTRAINT_SCHEMA = 'car_rental5';
+
+SET SQL_SAFE_UPDATES = 0;
+
+DELETE FROM bookings;
+DELETE FROM users;
+
+SET SQL_SAFE_UPDATES = 1;
+
+ALTER TABLE rentals ADD COLUMN car_name VARCHAR(100);
+
+SET SQL_SAFE_UPDATES = 0;
+
+UPDATE rentals r
+JOIN cars c ON r.car_id = c.id
+SET r.car_name = CONCAT(c.brand, ' ', c.model);
+
+SET SQL_SAFE_UPDATES = 1;
+
+SELECT * FROM users;
+SELECT * FROM rentals;
+SELECT * FROM cars;
+SELECT * FROM bookings;
