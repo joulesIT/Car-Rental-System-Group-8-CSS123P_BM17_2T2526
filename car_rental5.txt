@@ -1,6 +1,6 @@
 CREATE DATABASE car_rental5;
 
-USE car_rental5;
+USE car_rental;
 
 -- USERS
 INSERT INTO users (USERNAME, EMAIL, password, legal_name, drivers_license, phone_number, role, EMPLOYEE_ID) VALUES 
@@ -95,4 +95,5 @@ SET SQL_SAFE_UPDATES = 1;
 SELECT * FROM users;
 SELECT * FROM rentals;
 SELECT * FROM cars;
+
 SELECT * FROM bookings;
